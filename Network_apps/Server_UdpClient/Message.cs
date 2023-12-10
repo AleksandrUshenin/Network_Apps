@@ -12,6 +12,7 @@ namespace Server_UdpClient
         public string MessageText { get; set; }
         public string SenderIp { get; set; }
         public int SenderPort { get; set; }
+        //public DateTime DateTimeMessage { get; set; }
 
         public override string ToString()
         {

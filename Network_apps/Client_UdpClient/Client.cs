@@ -79,7 +79,13 @@ namespace Client_UdpClient
             }
             _id++;
             Console.WriteLine(" Write message: ");
-            string messageText = Console.ReadLine();
+            string? messageText = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(messageText))
+            {
+                return WriteMessage(th);
+            }
+            if (messageText.ToLower().Equals("exit"))
+                return null;
             Message m = new Message { Id = _id, MessageText = messageText, SenderIp = _IPClient, SenderPort = _PortClient };
             return Json_Convertor.Serialize(m);
         }

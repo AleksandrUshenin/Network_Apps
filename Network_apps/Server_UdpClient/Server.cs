@@ -13,22 +13,31 @@ namespace Server_UdpClient
         private readonly string _IP;
         private readonly int _Port;
         private uint _id;
+        private Logs _logs;
         public Server(string ip, int port)
         {
             this._IP = ip;
             this._Port = port;
             _id = 0;
+            _logs = new Logs();
         }
         public void Run()
         {
             try
             {
-                RunServer();
+                Thread th = new Thread(() => { RunServer(); });
+                th.IsBackground = true;
+                th.Start();
+                Exit();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
+        }
+        private void Exit()
+        {
+            Console.ReadLine();
         }
         private void RunServer()
         {
@@ -52,6 +61,10 @@ namespace Server_UdpClient
                     messegSend = "Server get message";
                 else
                     messegSend = $"Lose messege! message id : {messageObj.Id}  last id server {_id}";
+
+                new Thread(() => {
+                    _logs.SetLog(messageObj);
+                }).Start();
 
                 new Thread(() =>
                 {
