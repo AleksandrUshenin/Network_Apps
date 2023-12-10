@@ -10,6 +10,9 @@ namespace Server_UdpClient
 {
     internal class Server
     {
+        private CancellationTokenSource _tokenSource;
+        private CancellationToken _token;
+
         private readonly string _IP;
         private readonly int _Port;
         private uint _id;
@@ -20,18 +23,28 @@ namespace Server_UdpClient
             this._Port = port;
             _id = 0;
             _logs = new Logs();
+            _tokenSource = new CancellationTokenSource();
+            _token = _tokenSource.Token;
         }
         public void Run()
         {
+            Task? task = null;
             try
             {
-                Thread th = new Thread(() => { RunServer(); });
-                th.IsBackground = true;
-                th.Start();
+                //Thread th = new Thread(() => { RunServer(); });
+                task = Task.Run(() => { RunServer(); }, _token);
+                //th.IsBackground = true;
+                //th.Start();
+                //throw new Exception(" проверка токена");
                 Exit();
             }
             catch (Exception ex)
             {
+                _tokenSource.Cancel();
+                if (task.IsCanceled)
+                {
+                    Console.WriteLine(" The task has been canceled token!");
+                }
                 Console.WriteLine(ex.Message);
             }
         }
