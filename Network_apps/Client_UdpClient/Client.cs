@@ -1,4 +1,6 @@
 ﻿using Server_UdpClient;
+using Server_UdpClient.Controllers;
+using Server_UdpClient.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Client_UdpClient
 {
-    internal class Client
+    internal class Client : INetwork
     {
         private readonly string _IP;
         private readonly int _Port;
@@ -17,11 +19,13 @@ namespace Client_UdpClient
         private string _IPClient;
         private int _PortClient;
         private uint _id;
-        public Client(string ip, int port) 
+        private IUserInterface _userInterface;
+        public Client(string ip, int port, IUserInterface userInterface) 
         {
             this._IP = ip;
             this._Port = port;
             _id = 0;
+            _userInterface = userInterface;
         }
         public void Run()
         {
@@ -31,7 +35,7 @@ namespace Client_UdpClient
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                _userInterface.Print(ex.Message);
             }
         }
         private void RunClient()
@@ -39,55 +43,39 @@ namespace Client_UdpClient
             IPEndPoint ipPoint = new IPEndPoint(IPAddress.Parse(_IP), _Port);
             UdpClient client = new UdpClient();
 
-            Console.WriteLine(" Connection....");
-            client.Connect(ipPoint);
+            ControllerClient controller = new ControllerClient(_userInterface, ipPoint, client, WriteUsername());
+            controller.Run();
 
-            string[] dataClient = client.Client.LocalEndPoint.ToString().Split(':');
-            _IPClient = dataClient[0];
-            int.TryParse(dataClient[1], out _PortClient);
-
-            Console.WriteLine($" LocalEndPoint: {client.Client.LocalEndPoint}");
-            Console.WriteLine($" RemoteEndPoint: {client.Client.RemoteEndPoint}");
-            Console.WriteLine(" Connectied");
-            
-            Thread th = null;
-            string message = null;
-
-            do
-            {
-                message = WriteMessage(th);
-                byte[] buffer = Encoding.UTF8.GetBytes(message);
-                client.Send(buffer, buffer.Length);
-
-                th = new Thread(() =>
-                {
-                    byte[] buf = client.Receive(ref ipPoint);
-                    Message m = Json_Convertor.Deserialize(Encoding.UTF8.GetString(buf));
-                    Console.WriteLine(" Get: " + m.ToString());
-                });
-                th.Start();
-            }
-            while (!string.IsNullOrWhiteSpace(message));
             client.Close();
         }
-        private string WriteMessage(Thread th)
+        //private string? WriteMessage(Thread th)
+        //{
+        //    if (th != null && th.IsAlive)
+        //    {
+        //        Thread.Sleep(500);
+        //        return WriteMessage(th);
+        //    }
+        //    _id++;
+        //    _userInterface.Print(" Write message: ");
+        //    string? messageText = _userInterface.GetMessage();
+        //    if (string.IsNullOrWhiteSpace(messageText))
+        //    {
+        //        return WriteMessage(th);
+        //    }
+        //    if (messageText.ToLower().Equals("exit"))
+        //        return null;
+        //    Message m = new Message { Id = _id, MessageText = messageText, SenderIp = _IPClient, SenderPort = _PortClient };
+        //    return Json_Convertor.Serialize(m);
+        //}
+        private string? WriteUsername()
         {
-            if (th != null && th.IsAlive)
-            {
-                Thread.Sleep(500);
-                return WriteMessage(th);
-            }
-            _id++;
-            Console.WriteLine(" Write message: ");
-            string? messageText = Console.ReadLine();
+            _userInterface.Print(" Write user name: ");
+            string? messageText = _userInterface.GetMessage();
             if (string.IsNullOrWhiteSpace(messageText))
             {
-                return WriteMessage(th);
+                return WriteUsername();
             }
-            if (messageText.ToLower().Equals("exit"))
-                return null;
-            Message m = new Message { Id = _id, MessageText = messageText, SenderIp = _IPClient, SenderPort = _PortClient };
-            return Json_Convertor.Serialize(m);
+            return messageText;
         }
     }
 }

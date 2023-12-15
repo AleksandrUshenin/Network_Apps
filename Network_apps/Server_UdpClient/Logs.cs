@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Server_UdpClient.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace Server_UdpClient
 {
-    public class Logs
+    public class Logs : ILoger
     {
         public void SetLog(Message message)
         {
