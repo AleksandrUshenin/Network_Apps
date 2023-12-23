@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Server_UdpClient.Interfaces;
 
 using Server_UdpClient.Controllers;
+using Server_UdpClient.DataBaseFiles;
 
 namespace Server_UdpClient
 {
@@ -58,9 +59,11 @@ namespace Server_UdpClient
             IPEndPoint ipPoint = new IPEndPoint(IPAddress.Parse(_IP), _Port);
             _userInterface.Print(" Connection....");
             UdpClient client = new UdpClient(ipPoint);
-            ClientsBooks clientsBooks = new ClientsBooks();
 
-            Controller controller = new Controller(_userInterface, ipPoint, client, clientsBooks);
+            //ClientsBooks clientsBooks = new ClientsBooks();
+            DataBase dataBase = new DataBase();
+
+            Controller controller = new Controller(_userInterface, ipPoint, client, dataBase);
             controller.Run();
 
             client.Close();
