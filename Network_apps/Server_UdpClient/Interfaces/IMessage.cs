@@ -9,7 +9,7 @@ namespace Server_UdpClient.Interfaces
 {
     public interface IMessage
     {
-        uint Id { get; set; }
+        int Id { get; set; }
         string MessageText { get; set; }
         string SenderIp { get; set; }
         string UserNameFrom { get; set; }

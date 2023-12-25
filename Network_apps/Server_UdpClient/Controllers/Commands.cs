@@ -13,8 +13,7 @@ namespace Server_UdpClient.Controllers
         RemoveUser = 4,
         Response = 8,
         MessageToUser = 16,
+        GetUpDate = 32,
+        GetUpDateResponse = 64
     }
-    //internal class Commands
-    //{
-    //}
 }

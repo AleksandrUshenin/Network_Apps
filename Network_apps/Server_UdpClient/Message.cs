@@ -10,13 +10,13 @@ namespace Server_UdpClient
 {
     public class Message : IMessage
     {
-        public uint Id { get; set; }
-        public string MessageText { get; set; }
-        public string SenderIp { get; set; }
+        public int Id { get; set; }
+        public string? MessageText { get; set; }
+        public string? SenderIp { get; set; }
         public int SenderPort { get; set; }
         public Commands Command { get; set; }
-        public string UserNameFrom { get; set; }
-        public string UserNameTo { get; set; }
+        public string? UserNameFrom { get; set; }
+        public string? UserNameTo { get; set; }
         //public DateTime DateTimeMessage { get; set; }
 
         public override string ToString()
