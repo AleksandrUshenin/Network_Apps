@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server_UdpClient", "Server_UdpClient\Server_UdpClient.csproj", "{D73EF9A0-290F-4A37-9107-BD8C8C608942}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server_UdpClient", "Server_UdpClient\Server_UdpClient.csproj", "{D73EF9A0-290F-4A37-9107-BD8C8C608942}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client_UdpClient", "Client_UdpClient\Client_UdpClient.csproj", "{37DBBFA4-F88F-4BED-BF14-47D2D1807565}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client_UdpClient", "Client_UdpClient\Client_UdpClient.csproj", "{37DBBFA4-F88F-4BED-BF14-47D2D1807565}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{BC2695A0-7F6A-42AC-8464-0A32BAF10F15}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{37DBBFA4-F88F-4BED-BF14-47D2D1807565}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37DBBFA4-F88F-4BED-BF14-47D2D1807565}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37DBBFA4-F88F-4BED-BF14-47D2D1807565}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC2695A0-7F6A-42AC-8464-0A32BAF10F15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC2695A0-7F6A-42AC-8464-0A32BAF10F15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC2695A0-7F6A-42AC-8464-0A32BAF10F15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC2695A0-7F6A-42AC-8464-0A32BAF10F15}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

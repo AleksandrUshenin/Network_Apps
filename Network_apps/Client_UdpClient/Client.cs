@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Client_UdpClient
 {
-    internal class Client : INetwork
+    public class Client : INetwork
     {
         private readonly string _IP;
         private readonly int _Port;
@@ -20,7 +20,7 @@ namespace Client_UdpClient
         private int _PortClient;
         private uint _id;
         private IUserInterface _userInterface;
-        public Client(string ip, int port, IUserInterface userInterface) 
+        public Client(string ip, int port, IUserInterface userInterface)
         {
             this._IP = ip;
             this._Port = port;
@@ -76,6 +76,39 @@ namespace Client_UdpClient
                 return WriteUsername();
             }
             return messageText;
+        }
+        public bool Test()
+        {
+            IPEndPoint ipPoint = new IPEndPoint(IPAddress.Parse(_IP), _Port);
+            UdpClient client = new UdpClient();
+
+            ControllerClient controller = new ControllerClient(_userInterface, ipPoint, client, "Test");
+            var result = controller.Tests();
+
+            bool testResult = true;
+            for (int i = 0; i < result.Length; i++)
+            {
+                if (testResult == false) 
+                {
+                    throw new Exception($"Error in test {i}");
+                    return false;
+                }
+
+                switch (i)
+                {
+                    default:
+                        testResult = result[i].MessageText == "User added";
+                        break;
+                    case 2:
+                        testResult = result[i].MessageText == "Message added";
+                        break;
+                    case 3:
+                        testResult = result[i].MessageText == "Test 3";
+                        break;
+                }
+            }
+
+            return testResult;
         }
     }
 }
