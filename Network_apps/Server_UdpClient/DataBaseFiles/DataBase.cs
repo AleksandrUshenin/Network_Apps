@@ -9,7 +9,7 @@ using Server_UdpClient.Controllers;
 
 namespace Server_UdpClient.DataBaseFiles
 {
-    internal class DataBase : IDataBase
+    public class DataBase : IDataBase
     {
         //private MessageContext messageContext;
         public DataBase() 
