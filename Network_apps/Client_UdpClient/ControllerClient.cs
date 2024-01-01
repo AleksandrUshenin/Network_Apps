@@ -108,32 +108,32 @@ namespace Client_UdpClient
         int Test = 0;
         private Message? WriteMessage(Thread th)
         {
-            switch (Test)
-            {
-                case 0:
-                    Test++;
-                    _userInterface.Print(" Test 1 ");
-                    _userInterface.GetMessage();
-                    return new Message() { Id = _id, MessageText = "Test 1", SenderIp = _IPClient, SenderPort = _PortClient, Command = Commands.AddUser, UserNameFrom = "Client 1", UserNameTo = "Server" };
-                case 1:
-                    Test++;
-                    _userInterface.Print(" Test 2 ");
-                    _userInterface.GetMessage();
-                    return new Message() { Id = _id, MessageText = "Test 2", SenderIp = _IPClient, SenderPort = _PortClient, Command = Commands.AddUser, UserNameFrom = "Client 2", UserNameTo = "Server" };
-                case 2:
-                    Test++;
-                    _userInterface.Print(" Test 3 ");
-                    _userInterface.GetMessage();
-                    return new Message() { Id = _id, MessageText = "Test 3", SenderIp = _IPClient, SenderPort = _PortClient, Command = Commands.MessageToUser, UserNameFrom = "Client 1", UserNameTo = "Client 2" };
-                case 3:
-                    Test = 0;
-                    _userInterface.Print(" Test 4 ");
-                    _userInterface.GetMessage();
-                    Random r = new Random();
-                    int n = r.Next(0, int.MaxValue);
-                    return new Message() { Id = _id, MessageText = $"Test 4 : {n}", SenderIp = _IPClient, SenderPort = _PortClient, Command = Commands.GetUpDate, UserNameFrom = "Client 2", UserNameTo = "Server" };
-            }
-            return null;
+            //switch (Test)
+            //{
+            //    case 0:
+            //        Test++;
+            //        _userInterface.Print(" Test 1 ");
+            //        _userInterface.GetMessage();
+            //        return new Message() { Id = _id, MessageText = "Test 1", SenderIp = _IPClient, SenderPort = _PortClient, Command = Commands.AddUser, UserNameFrom = "Client 1", UserNameTo = "Server" };
+            //    case 1:
+            //        Test++;
+            //        _userInterface.Print(" Test 2 ");
+            //        _userInterface.GetMessage();
+            //        return new Message() { Id = _id, MessageText = "Test 2", SenderIp = _IPClient, SenderPort = _PortClient, Command = Commands.AddUser, UserNameFrom = "Client 2", UserNameTo = "Server" };
+            //    case 2:
+            //        Test++;
+            //        _userInterface.Print(" Test 3 ");
+            //        _userInterface.GetMessage();
+            //        return new Message() { Id = _id, MessageText = "Test 3", SenderIp = _IPClient, SenderPort = _PortClient, Command = Commands.MessageToUser, UserNameFrom = "Client 1", UserNameTo = "Client 2" };
+            //    case 3:
+            //        Test = 0;
+            //        _userInterface.Print(" Test 4 ");
+            //        _userInterface.GetMessage();
+            //        Random r = new Random();
+            //        int n = r.Next(0, int.MaxValue);
+            //        return new Message() { Id = _id, MessageText = $"Test 4 : {n}", SenderIp = _IPClient, SenderPort = _PortClient, Command = Commands.GetUpDate, UserNameFrom = "Client 2", UserNameTo = "Server" };
+            //}
+            //return null;
             if (th != null && th.IsAlive)
             {
                 Thread.Sleep(500);
@@ -149,6 +149,58 @@ namespace Client_UdpClient
             if (messageText.ToLower().Equals("exit"))
                 return null;
             return new Message { Id = _id, MessageText = messageText, SenderIp = _IPClient, SenderPort = _PortClient, Command = Commands.AddUser, UserNameFrom = _usrName, UserNameTo = "Server" };
+        }
+        internal Message[] Tests()
+        {
+            _userInterface.Print(" Connection....");
+            _udpClient.Connect(_iPEndPoint);
+
+
+            List<Message> result = new List<Message>();
+            Thread read = new Thread(() => {
+                while (true) 
+                {
+                    _userInterface.Print(" Getting Message ");
+                    result.Add(_mediator.GetMessage());
+                }
+            });
+            read.Start();
+
+            for (int i = 0; i < 4; i++)
+            {
+                var mes = TestClient(i);
+                _mediator.SendMessage(mes, true);
+                Thread.Sleep(1000);
+            }
+            //read.Abort();
+            return result.ToArray();
+        }
+        internal Message TestClient(int test)
+        {
+            switch (test)
+            {
+                case 0:
+                    Test++;
+                    _userInterface.Print(" Test 1 ");
+                    //_userInterface.GetMessage();
+                    return new Message() { Id = _id, MessageText = "Test 1", SenderIp = _IPClient, SenderPort = _PortClient, Command = Commands.AddUser, UserNameFrom = "Client 1", UserNameTo = "Server" };
+                case 1:
+                    Test++;
+                    _userInterface.Print(" Test 2 ");
+                    //_userInterface.GetMessage();
+                    return new Message() { Id = _id, MessageText = "Test 2", SenderIp = _IPClient, SenderPort = _PortClient, Command = Commands.AddUser, UserNameFrom = "Client 2", UserNameTo = "Server" };
+                case 2:
+                    Test++;
+                    _userInterface.Print(" Test 3 ");
+                    //_userInterface.GetMessage();
+                    return new Message() { Id = _id, MessageText = "Test 3", SenderIp = _IPClient, SenderPort = _PortClient, Command = Commands.MessageToUser, UserNameFrom = "Client 1", UserNameTo = "Client 2" };
+                case 3:
+                    Test = 0;
+                    _userInterface.Print(" Test 4 ");
+                    //_userInterface.GetMessage();
+                    return new Message() { Id = _id, MessageText = "Test 4", SenderIp = _IPClient, SenderPort = _PortClient, Command = Commands.GetUpDate, UserNameFrom = "Client 2", UserNameTo = "Server" };
+            }
+            return null;
         }
     }
 }

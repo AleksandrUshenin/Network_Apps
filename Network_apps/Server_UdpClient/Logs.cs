@@ -12,7 +12,12 @@ namespace Server_UdpClient
     {
         public void SetLog(Message message)
         {
-            string dir = Path.Combine(Directory.GetCurrentDirectory(), message.SenderIp);
+            string dir = "";
+            if (message.SenderIp == null)
+                return;
+
+            dir = Path.Combine(Directory.GetCurrentDirectory(), message.SenderIp);
+
             if (!Directory.Exists(dir))
             {
                 Directory.CreateDirectory(dir);
