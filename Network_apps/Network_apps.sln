@@ -7,9 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server_UdpClient", "Server_
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client_UdpClient", "Client_UdpClient\Client_UdpClient.csproj", "{37DBBFA4-F88F-4BED-BF14-47D2D1807565}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{BC2695A0-7F6A-42AC-8464-0A32BAF10F15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{BC2695A0-7F6A-42AC-8464-0A32BAF10F15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProjectClient", "TestProjectClient\TestProjectClient.csproj", "{EDAAA6E5-5739-4AA7-A4EF-C1AE4D995B4D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestProjectClient", "TestProjectClient\TestProjectClient.csproj", "{EDAAA6E5-5739-4AA7-A4EF-C1AE4D995B4D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server_NetMQ", "Server_NetMQ\Server_NetMQ.csproj", "{08C6B3A9-68FF-4C87-AB55-04DD085F7032}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client_NetMQ", "Client_NetMQ\Client_NetMQ.csproj", "{D88A7BD5-3F6D-46B3-9319-7A4C30D61384}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{EDAAA6E5-5739-4AA7-A4EF-C1AE4D995B4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDAAA6E5-5739-4AA7-A4EF-C1AE4D995B4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EDAAA6E5-5739-4AA7-A4EF-C1AE4D995B4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08C6B3A9-68FF-4C87-AB55-04DD085F7032}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08C6B3A9-68FF-4C87-AB55-04DD085F7032}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08C6B3A9-68FF-4C87-AB55-04DD085F7032}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08C6B3A9-68FF-4C87-AB55-04DD085F7032}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D88A7BD5-3F6D-46B3-9319-7A4C30D61384}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D88A7BD5-3F6D-46B3-9319-7A4C30D61384}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D88A7BD5-3F6D-46B3-9319-7A4C30D61384}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D88A7BD5-3F6D-46B3-9319-7A4C30D61384}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
